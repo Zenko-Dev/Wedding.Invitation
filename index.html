@@ -199,6 +199,7 @@
         <div class="container">
           <h2 class="section__title">Confirma tu asistencia</h2>
           <p id="guest-greeting" class="section__subtitle">Ingresa desde tu link personal para confirmar.</p>
+          <p id="guest-notes" class="guest-notes muted" hidden></p>
 
           <form id="rsvp-form" class="form" novalidate>
             <div class="form__row">
@@ -228,10 +229,6 @@
               <textarea id="message" name="message" rows="3" placeholder="Con mucho gusto los acompañamos…"></textarea>
             </div>
 
-            <div class="form__row">
-              <label for="notes" class="form__label">Notas (restricciones alimentarias, etc.)</label>
-              <textarea id="notes" name="notes" rows="2" placeholder="Escribe aquí…"></textarea>
-            </div>
 
             <div class="form__actions">
               <button id="btn-submit" class="btn btn--primary" type="submit" disabled>Enviar RSVP</button>
@@ -280,6 +277,6 @@
     <!-- Toast -->
     <div id="toast" class="toast" aria-live="polite" aria-atomic="true"></div>
 
-    <script src="assets/app.js?v=4"></script>
+    <script src="assets/app.js?v=6"></script>
   </body>
   </html>

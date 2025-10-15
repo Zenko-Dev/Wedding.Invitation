@@ -204,11 +204,25 @@
     onScroll();
   }
 
+  // Helper: fetch con timeout para evitar esperas largas en GAS
+  async function fetchWithTimeout(url, options={}, timeoutMs=8000){
+    const ctrl = new AbortController();
+    const id = setTimeout(() => ctrl.abort('timeout'), timeoutMs);
+    try{
+      const res = await fetch(url, { ...options, signal: ctrl.signal });
+      clearTimeout(id);
+      return res;
+    }catch(err){
+      clearTimeout(id);
+      throw err;
+    }
+  }
+
   async function validateToken(token){
     if(!GAS_URL){ console.warn('GAS_URL no definido'); return null; }
     try{
       const url = `${GAS_URL}?endpoint=guest&id=${encodeURIComponent(token)}`;
-      const res = await fetch(url, { mode:'cors' });
+      const res = await fetchWithTimeout(url, { mode:'cors' }, 8000);
       if(!res.ok) throw new Error('HTTP '+res.status);
       return await res.json();
     }catch(err){ console.error('validateToken error', err); return null; }
@@ -335,7 +349,7 @@
     status: document.getElementById('form-status'),
     guestName: document.getElementById('guest-name'),
     passes: document.getElementById('passes'),
-    notes: document.getElementById('notes'),
+    guestNotes: document.getElementById('guest-notes'),
     toast: document.getElementById('toast'),
   };
 
@@ -498,13 +512,12 @@
     const attending = attendingVal === 'si';
     const guests = attending ? Math.min(Number(els.guests?.value||1), Number(els.guests?.max||1)) : 0;
     const message = (document.getElementById('message')?.value || '').trim();
-    const notes = (els.notes?.value || '').trim();
 
     setFormEnabled(false);
     if(els.status) els.status.textContent = 'Enviando…';
     try{
       const postUrl = `${GAS_URL}?endpoint=rsvp`;
-      const res = await fetch(postUrl, { method:'POST', mode:'cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ id: token, attending, guestsCount: guests, message, notes }) });
+      const res = await fetchWithTimeout(postUrl, { method:'POST', mode:'cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ id: token, attending, guestsCount: guests, message }) }, 10000);
       const data = await res.json();
       if(data && data.status === 'ok'){
         if(els.status) els.status.textContent = attending ? '¡Gracias! Confirmación recibida.' : 'Lamentamos que no puedas asistir. ¡Gracias por avisar!';
@@ -544,7 +557,10 @@
     }
     if((data.guestsCount!=null) && els.guests){ els.guests.value = String(data.guestsCount); }
     if(data.message){ const m = document.getElementById('message'); if(m){ m.value = data.message; } }
-    if(data.notes && els.notes){ els.notes.value = data.notes; }
+    if(typeof data.notes === 'string' && data.notes.trim().length > 0 && els.guestNotes){
+      els.guestNotes.textContent = data.notes.trim();
+      els.guestNotes.hidden = false;
+    }
   }
 
   // Copiar CLABE en modal

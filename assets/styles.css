@@ -81,6 +81,8 @@ body{
 
 .token-help{margin-top:10px}
 
+.guest-notes{margin:8px 0 18px; white-space:pre-wrap}
+
 .site-footer{padding:40px 0; text-align:center; color:var(--ink-muted); border-top:1px solid var(--outline); background:var(--bg-2)}
 
 /* Modal */

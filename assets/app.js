@@ -217,19 +217,16 @@
       throw err;
     }
   }
-
-  async function requestJsonWithRetry(url, options={}, timeouts=[10000, 15000, 20000]){
+  
+  // Fetch JSON con reintentos progresivos (simple y robusto)
+  async function fetchJsonWithRetries(url, options={}, timeouts=[10000,15000,20000]){
     let lastErr;
-    for(let i=0;i<timeouts.length;i++){
+    for(const t of timeouts){
       try{
-        const res = await fetchWithTimeout(url, options, timeouts[i]);
+        const res = await fetchWithTimeout(url, options, t);
         if(!res.ok) throw new Error('HTTP '+res.status);
         return await res.json();
-      }catch(err){
-        lastErr = err;
-        // breve espera antes de reintentar
-        await new Promise(r => setTimeout(r, 300));
-      }
+      }catch(err){ lastErr = err; await new Promise(r=>setTimeout(r,300)); }
     }
     throw lastErr || new Error('request_failed');
   }
@@ -238,7 +235,8 @@
     if(!GAS_URL){ console.warn('GAS_URL no definido'); return null; }
     try{
       const url = `${GAS_URL}?endpoint=guest&id=${encodeURIComponent(token)}`;
-      return await requestJsonWithRetry(url, { mode:'cors' }, [10000, 15000, 20000]);
+      // GET sin headers para evitar preflight innecesario
+      return await fetchJsonWithRetries(url, {}, [10000,15000,20000]);
     }catch(err){ console.error('validateToken error', err); return null; }
   }
 
@@ -489,7 +487,7 @@
 
   function setGreeting(guest){
     if(!guest){ if(els.guestGreeting) els.guestGreeting.textContent = 'Ingresa desde tu link personal para confirmar.'; return; }
-    const name = guest.name || 'Invitado(a)';
+    const name = guest.name || guest.guestName || 'Invitado(a)';
     if(els.guestGreeting) els.guestGreeting.textContent = `Hola, ${name}. ¡Gracias por acompañarnos!`;
     if(els.guestName) els.guestName.value = name;
   }
@@ -532,7 +530,7 @@
     try{
       const postUrl = `${GAS_URL}?endpoint=rsvp`;
       // Para evitar preflight CORS en Apps Script, usamos text/plain
-      const data = await requestJsonWithRetry(
+      const data = await fetchJsonWithRetries(
         postUrl,
         {
           method:'POST',

@@ -42,7 +42,12 @@ body{
 .btn:hover{transform:translateY(-1px); box-shadow:0 6px 16px rgba(0,0,0,.08)}
 .btn:focus-visible{outline:2px solid var(--primary); outline-offset:2px}
 
-.hero{position:relative; text-align:center; padding-top:120px; padding-bottom:80px; background:radial-gradient(900px 500px at 50% -10%, #fff 0%, var(--bg) 70%)}
+.hero{position:relative; text-align:center; padding-top:120px; padding-bottom:80px; background:radial-gradient(900px 500px at 50% -10%, #fff 0%, var(--bg) 70%); min-height: 420px;}
+.hero{background-image:url('assets/img/gallery-placeholder.svg'); background-size:cover; background-position:center;}
+.hero::before{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(250,247,240,.85) 0%, rgba(250,247,240,.65) 40%, rgba(250,247,240,.9) 100%); pointer-events:none; opacity:0; animation: heroFade .9s ease forwards}
+@keyframes heroFade{ from{ opacity:0; transform: translateY(8px);} to{ opacity:1; transform:none;} }
+.hero__media{width:min(860px, 96%); margin:0 auto 12px; border-radius:16px; overflow:hidden; box-shadow:var(--shadow);}
+.hero__img{width:100%; height:auto; display:block}
 .hero__title{font-family:"Playfair Display", serif; font-size: clamp(44px, 8vw, 96px); line-height:1.05; margin:0 0 6px}
 .hero__date{letter-spacing:.12em; color:var(--primary)}
 .hero__lead{color:var(--ink-muted); margin:10px auto 24px; width:min(700px, 92%)}

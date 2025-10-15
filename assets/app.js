@@ -5,7 +5,7 @@
   'use strict';
 
   // CONFIGURA AQUÍ tu Web App URL de Apps Script (termina en /exec)
-  const GAS_URL = 'https://script.google.com/macros/s/AKfycbxZ0uwN4d733AsB49MUbP2skA31tD7CGuQDhcLPvzG-v91g3x9QyBPtfV2Q3XiSc-CN/exec';
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbxVq_R29C1KtAgWWRA6lP0h7j7hKwFafx1accebzNgOZm0R7UQTt6pGTDmntDionGDA/exec';
   const TIME_ZONE = 'America/Mexico_City';
 
   // Fechas del evento en hora local de CDMX (UTC-6)

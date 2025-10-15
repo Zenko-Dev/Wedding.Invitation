@@ -531,7 +531,16 @@
     if(els.status) els.status.textContent = 'Enviando…';
     try{
       const postUrl = `${GAS_URL}?endpoint=rsvp`;
-      const data = await requestJsonWithRetry(postUrl, { method:'POST', mode:'cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ id: token, attending, guestsCount: guests, message }) }, [12000, 18000]);
+      // Para evitar preflight CORS en Apps Script, usamos text/plain
+      const data = await requestJsonWithRetry(
+        postUrl,
+        {
+          method:'POST',
+          headers:{ 'Content-Type':'text/plain;charset=utf-8' },
+          body: JSON.stringify({ id: token, attending, guestsCount: guests, message })
+        },
+        [12000, 18000]
+      );
       if(data && data.status === 'ok'){
         if(els.status) els.status.textContent = attending ? '¡Gracias! Confirmación recibida.' : 'Lamentamos que no puedas asistir. ¡Gracias por avisar!';
         if(els.btnSubmit) els.btnSubmit.disabled = true;

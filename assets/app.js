@@ -218,13 +218,27 @@
     }
   }
 
+  async function requestJsonWithRetry(url, options={}, timeouts=[10000, 15000, 20000]){
+    let lastErr;
+    for(let i=0;i<timeouts.length;i++){
+      try{
+        const res = await fetchWithTimeout(url, options, timeouts[i]);
+        if(!res.ok) throw new Error('HTTP '+res.status);
+        return await res.json();
+      }catch(err){
+        lastErr = err;
+        // breve espera antes de reintentar
+        await new Promise(r => setTimeout(r, 300));
+      }
+    }
+    throw lastErr || new Error('request_failed');
+  }
+
   async function validateToken(token){
     if(!GAS_URL){ console.warn('GAS_URL no definido'); return null; }
     try{
       const url = `${GAS_URL}?endpoint=guest&id=${encodeURIComponent(token)}`;
-      const res = await fetchWithTimeout(url, { mode:'cors' }, 8000);
-      if(!res.ok) throw new Error('HTTP '+res.status);
-      return await res.json();
+      return await requestJsonWithRetry(url, { mode:'cors' }, [10000, 15000, 20000]);
     }catch(err){ console.error('validateToken error', err); return null; }
   }
 
@@ -517,8 +531,7 @@
     if(els.status) els.status.textContent = 'Enviando…';
     try{
       const postUrl = `${GAS_URL}?endpoint=rsvp`;
-      const res = await fetchWithTimeout(postUrl, { method:'POST', mode:'cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ id: token, attending, guestsCount: guests, message }) }, 10000);
-      const data = await res.json();
+      const data = await requestJsonWithRetry(postUrl, { method:'POST', mode:'cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ id: token, attending, guestsCount: guests, message }) }, [12000, 18000]);
       if(data && data.status === 'ok'){
         if(els.status) els.status.textContent = attending ? '¡Gracias! Confirmación recibida.' : 'Lamentamos que no puedas asistir. ¡Gracias por avisar!';
         if(els.btnSubmit) els.btnSubmit.disabled = true;

@@ -297,7 +297,8 @@
   'use strict';
 
   // URL del Web App de Apps Script (termina en /exec)
-  const GAS_URL = 'https://script.google.com/macros/s/TU_DEPLOY_ID/exec';
+  // URL del Web App de Apps Script (termina en /exec)
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbxZ0uwN4d733AsB49MUbP2skA31tD7CGuQDhcLPvzG-v91g3x9QyBPtfV2Q3XiSc-CN/exec';
 
   // Fechas del evento en hora local de CDMX
   const EVENT = {

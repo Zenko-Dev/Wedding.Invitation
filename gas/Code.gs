@@ -62,17 +62,10 @@ function findRowByToken_(token){
   return -1;
 }
 
-function allowCors_(out){
-  out.setHeader('Access-Control-Allow-Origin', '*');
-  out.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  out.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-}
-
 function jsonOutput_(obj){
-  const out = ContentService.createTextOutput(JSON.stringify(obj));
-  out.setMimeType(ContentService.MimeType.JSON);
-  allowCors_(out);
-  return out;
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 function route_(e){
@@ -84,7 +77,8 @@ function route_(e){
 }
 
 function doOptions(){
-  return jsonOutput_({ ok:true });
+  // Responder 200 OK a preflights simples
+  return ContentService.createTextOutput('').setMimeType(ContentService.MimeType.TEXT);
 }
 
 function doGet(e){

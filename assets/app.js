@@ -207,7 +207,7 @@
   async function validateToken(token){
     if(!GAS_URL){ console.warn('GAS_URL no definido'); return null; }
     try{
-      const url = `${GAS_URL.replace(/\/$/,'')}/guest?id=${encodeURIComponent(token)}`;
+      const url = `${GAS_URL}?endpoint=guest&id=${encodeURIComponent(token)}`;
       const res = await fetch(url, { mode:'cors' });
       if(!res.ok) throw new Error('HTTP '+res.status);
       return await res.json();
@@ -502,7 +502,7 @@
     setFormEnabled(false);
     if(els.status) els.status.textContent = 'Enviando…';
     try{
-      const postUrl = `${GAS_URL.replace(/\/$/,'')}/rsvp`;
+      const postUrl = `${GAS_URL}?endpoint=rsvp`;
       const res = await fetch(postUrl, { method:'POST', mode:'cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ id: token, attending, guestsCount: guests, message, notes }) });
       const data = await res.json();
       if(data && data.status === 'ok'){

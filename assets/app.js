@@ -231,7 +231,7 @@
     throw lastErr || new Error('request_failed');
   }
 
-  async function validateToken(token){
+  async function _validateToken_legacy(token){
     if(!GAS_URL){ console.warn('GAS_URL no definido'); return null; }
     try{
       const url = `${GAS_URL}?endpoint=guest&id=${encodeURIComponent(token)}`;
@@ -240,12 +240,12 @@
     }catch(err){ console.error('validateToken error', err); return null; }
   }
 
-  function setGreeting(guest){
+  function _setGreeting_legacy(guest){
     if(!guest){ if(els.guestGreeting) els.guestGreeting.textContent = 'Ingresa desde tu link personal para confirmar.'; return; }
     const name = guest.name || 'Invitado(a)';
     if(els.guestGreeting) els.guestGreeting.textContent = `Hola, ${name}. ¡Gracias por acompañarnos!`;
   }
-  function setGuestsLimit(max){
+  function _setGuestsLimit_legacy(max){
     const m = Math.max(1, Number(max || 1));
     if(els.guests){ els.guests.max = String(m); els.guests.value = '1'; }
     if(els.guestsHelp){ els.guestsHelp.textContent = `Tu invitación es válida para ${m} ${m>1?'personas':'persona'}.`; }
@@ -359,8 +359,8 @@
     guests: document.getElementById('guests'),
     guestsHelp: document.getElementById('guests-help'),
     status: document.getElementById('form-status'),
-    guestName: document.getElementById('guest-name'),
-    passes: document.getElementById('passes'),
+    guestName: null,
+    passes: null,
     guestNotes: document.getElementById('guest-notes'),
     toast: document.getElementById('toast'),
   };
@@ -479,23 +479,21 @@
   async function validateToken(token){
     if(!GAS_URL){ console.warn('GAS_URL no definido'); return null; }
     try{
-      const res = await fetch(`${GAS_URL}?action=validate&token=${encodeURIComponent(token)}`, { mode:'cors' });
-      if(!res.ok) throw new Error('HTTP '+res.status);
-      return await res.json();
+      const url = `${GAS_URL}?endpoint=guest&id=${encodeURIComponent(token)}`;
+      return await fetchJsonWithRetries(url, {}, [10000,15000,20000]);
     }catch(err){ console.error('validateToken error', err); return null; }
   }
 
   function setGreeting(guest){
     if(!guest){ if(els.guestGreeting) els.guestGreeting.textContent = 'Ingresa desde tu link personal para confirmar.'; return; }
     const name = guest.name || guest.guestName || 'Invitado(a)';
-    if(els.guestGreeting) els.guestGreeting.textContent = `Hola, ${name}. ¡Gracias por acompañarnos!`;
-    if(els.guestName) els.guestName.value = name;
+    const passesText = (typeof guest.maxPasses === 'number' && guest.maxPasses>0) ? ` · Pases: ${guest.maxPasses}` : '';
+    if(els.guestGreeting) els.guestGreeting.textContent = `Hola, ${name}${passesText}. ¡Gracias por acompañarnos!`;
   }
   function setGuestsLimit(max){
     const m = Math.max(1, Number(max || 1));
     if(els.guests){ els.guests.max = String(m); els.guests.value = '1'; }
     if(els.guestsHelp){ els.guestsHelp.textContent = `Tu invitación es válida para ${m} ${m>1?'personas':'persona'}.`; }
-    if(els.passes){ els.passes.value = String(m); }
   }
   function setFormEnabled(enabled){
     if(els.btnSubmit) els.btnSubmit.disabled = !enabled;
@@ -563,9 +561,9 @@
     setFormEnabled(false);
     if(els.status) els.status.textContent = 'Cargando tu invitación…';
     const data = await validateToken(token);
-    if(!data || data.ok !== true){ setGreeting(null); if(els.status) els.status.textContent = 'No pudimos validar tu invitación. Revisa tu enlace.'; return; }
-    setGreeting({ name: data.name });
-    setGuestsLimit(data.maxGuests || 1);
+    if(!data || data.status !== \u0027ok\u0027){ setGreeting(null); if(els.status) els.status.textContent = 'No pudimos validar tu invitación. Revisa tu enlace.'; return; }
+    setGreeting({ name: data.guestName });
+    setGuestsLimit(data.maxPasses || 1);
     if(els.status) els.status.textContent = '';
     setFormEnabled(true);
 

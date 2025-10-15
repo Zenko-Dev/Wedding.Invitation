@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a191f"/>
+      <stop offset="1" stop-color="#0f0e12"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#c2a06b"/>
+      <stop offset="1" stop-color="#e3c796"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="800" height="600" fill="url(#g1)"/>
+  <g opacity="0.25">
+    <circle cx="120" cy="100" r="60" fill="url(#g2)" />
+    <circle cx="700" cy="520" r="80" fill="url(#g2)" />
+  </g>
+  <g>
+    <path d="M270 360 L350 280 L420 340 L500 260 L640 400 L160 400 Z" fill="#14131a" stroke="#3a3326"/>
+    <circle cx="340" cy="250" r="24" fill="#14131a" stroke="#3a3326"/>
+  </g>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#e3c796" font-family="'Playfair Display', serif" font-size="36">Ángel & Andrea</text>
+</svg>
+

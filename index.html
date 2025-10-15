@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Invitación de Boda — 22 de noviembre de 2025</title>
+    <meta name="description" content="Acompáñanos a celebrar nuestra boda el 22 de noviembre de 2025. Confirma tu asistencia (RSVP), revisa la mesa de regalos y todos los detalles." />
+    <meta name="theme-color" content="#1b1a1f" />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="Invitación de Boda — 22 de noviembre de 2025" />
+    <meta property="og:description" content="Confirma tu asistencia (RSVP), revisa la mesa de regalos y todos los detalles del gran día." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="assets/img/preview.jpg" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a href="#intro" class="nav__logo" aria-label="Inicio">A&A</a>
+        <div class="nav__links">
+          <a href="#cuenta-regresiva">Cuenta regresiva</a>
+          <a href="#familia">Familia</a>
+          <a href="#codigo-vestimenta">Código</a>
+          <a href="#eventos">Ceremonia y Fiesta</a>
+          <a href="#galeria">Galería</a>
+          <a href="#regalos">Regalos</a>
+          <a href="#rsvp" class="btn btn--primary">Confirmar</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Intro / Hero -->
+      <section id="intro" class="hero section">
+        <div class="container">
+          <div class="hero__inner">
+            <img class="hero__flourish" src="assets/img/flourish.svg" alt="Decoración" />
+            <h1 class="hero__title">Ángel & Andrea</h1>
+            <p class="hero__date">22 de noviembre de 2025</p>
+            <p class="hero__lead">Con la bendición de nuestras familias, queremos celebrar este gran día contigo.</p>
+            <div class="hero__cta">
+              <a href="#rsvp" class="btn btn--primary">Confirmar asistencia</a>
+              <a href="#eventos" class="btn">Detalles del evento</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Countdown -->
+      <section id="cuenta-regresiva" class="countdown section">
+        <div class="container">
+          <h2 class="section__title">Cuenta regresiva</h2>
+          <p class="section__subtitle">Falta muy poco para celebrar juntos</p>
+          <div class="countdown__grid" data-animate>
+            <div class="countdown__item">
+              <div id="cd-days" class="countdown__value">0</div>
+              <div class="countdown__label">Días</div>
+            </div>
+            <div class="countdown__item">
+              <div id="cd-hours" class="countdown__value">0</div>
+              <div class="countdown__label">Horas</div>
+            </div>
+            <div class="countdown__item">
+              <div id="cd-mins" class="countdown__value">0</div>
+              <div class="countdown__label">Minutos</div>
+            </div>
+            <div class="countdown__item">
+              <div id="cd-secs" class="countdown__value">0</div>
+              <div class="countdown__label">Segundos</div>
+            </div>
+          </div>
+          <div class="countdown__actions">
+            <button id="btn-calendar" class="btn btn--outline">Agregar al calendario</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Familia -->
+      <section id="familia" class="section">
+        <div class="container">
+          <h2 class="section__title"><span class="icon" aria-hidden="true">💞</span> Con cariño de nuestras familias</h2>
+          <div class="grid grid--two" data-animate>
+            <div class="card">
+              <h3>Padres de la novia</h3>
+              <p>Nombre Madre • Nombre Padre</p>
+            </div>
+            <div class="card">
+              <h3>Padres del novio</h3>
+              <p>Nombre Madre • Nombre Padre</p>
+            </div>
+          </div>
+          <div class="grid grid--two" data-animate>
+            <div class="card">
+              <h3><span class="icon" aria-hidden="true">⭐</span> Padrinos</h3>
+              <p>Lista de padrinos y su participación.</p>
+            </div>
+            <div class="card">
+              <h3><span class="icon" aria-hidden="true">✍️</span> Testigos</h3>
+              <p>Lista de testigos (opcional).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Código de vestimenta -->
+      <section id="codigo-vestimenta" class="section section--tint">
+        <div class="container">
+          <h2 class="section__title"><span class="icon" aria-hidden="true">👗</span> Código de vestimenta</h2>
+          <div class="grid grid--two" data-animate>
+            <div class="card">
+              <h3>Etiqueta sugerida</h3>
+              <p>Formal de noche. Colores neutros y acentos metálicos. Evitar blanco y tonalidades marfil.</p>
+            </div>
+            <div class="card">
+              <h3>Tips</h3>
+              <p>El evento es en interior. Llevar calzado cómodo para la pista.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ceremonia y Fiesta -->
+      <section id="eventos" class="section">
+        <div class="container">
+          <h2 class="section__title">Ceremonia y fiesta</h2>
+          <div class="grid grid--two" data-animate>
+            <div class="card">
+              <h3>Ceremonia</h3>
+              <p class="muted">17:00 h</p>
+              <p>Templo / Dirección exacta</p>
+              <div class="map-embed">
+                <iframe title="Mapa ceremonia" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Templo%20Parroquial&output=embed"></iframe>
+              </div>
+              <div class="card__actions">
+                <a id="link-calendar-ceremony" class="btn btn--small btn--outline" href="#">Agendar</a>
+                <a class="btn btn--small" target="_blank" href="https://maps.google.com/?q=Templo%20Parroquial">Abrir en Maps</a>
+              </div>
+            </div>
+            <div class="card">
+              <h3>Recepción</h3>
+              <p class="muted">19:30 h</p>
+              <p>Salón / Dirección exacta</p>
+              <div class="map-embed">
+                <iframe title="Mapa recepción" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Salon%20de%20Eventos&output=embed"></iframe>
+              </div>
+              <div class="card__actions">
+                <a id="link-calendar-reception" class="btn btn--small btn--outline" href="#">Agendar</a>
+                <a class="btn btn--small" target="_blank" href="https://maps.google.com/?q=Salon%20de%20Eventos">Abrir en Maps</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Regalos -->
+      <section id="regalos" class="section section--tint">
+        <div class="container">
+          <h2 class="section__title">Mesa de regalos</h2>
+          <div class="grid grid--two" data-animate>
+            <div class="card">
+              <h3>Amazon</h3>
+              <p>Gracias por ayudarnos a crear nuestro hogar. Hemos preparado una lista con algunos artículos que nos encantarían.</p>
+              <a class="btn" target="_blank" href="https://www.amazon.com.mx/hz/wishlist/ls/COLOCA_TU_LISTA">Ver lista en Amazon</a>
+            </div>
+            <div class="card">
+              <h3>Lluvia de sobres</h3>
+              <p>Si prefieres un detalle en efectivo, con todo cariño te compartimos cómo hacerlo.</p>
+              <button class="btn btn--outline" data-open-modal="#modal-sobres">Ver instrucciones</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Galería -->
+      <section id="galeria" class="section">
+        <div class="container">
+          <h2 class="section__title">Galería</h2>
+          <p class="section__subtitle">Algunas imágenes que nos inspiran para el gran día</p>
+          <div class="gallery__grid" data-animate>
+            <figure class="gallery__item"><img src="assets/img/gallery-placeholder.svg" alt="Galería 1" loading="lazy"><figcaption></figcaption></figure>
+            <figure class="gallery__item"><img src="assets/img/gallery-placeholder.svg" alt="Galería 2" loading="lazy"><figcaption></figcaption></figure>
+            <figure class="gallery__item"><img src="assets/img/gallery-placeholder.svg" alt="Galería 3" loading="lazy"><figcaption></figcaption></figure>
+            <figure class="gallery__item"><img src="assets/img/gallery-placeholder.svg" alt="Galería 4" loading="lazy"><figcaption></figcaption></figure>
+            <figure class="gallery__item"><img src="assets/img/gallery-placeholder.svg" alt="Galería 5" loading="lazy"><figcaption></figcaption></figure>
+            <figure class="gallery__item"><img src="assets/img/gallery-placeholder.svg" alt="Galería 6" loading="lazy"><figcaption></figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- RSVP -->
+      <section id="rsvp" class="section">
+        <div class="container">
+          <h2 class="section__title">Confirma tu asistencia</h2>
+          <p id="guest-greeting" class="section__subtitle">Ingresa desde tu link personal para confirmar.</p>
+
+          <form id="rsvp-form" class="form" novalidate>
+            <div class="form__row">
+              <label for="guest-name" class="form__label">Invitado</label>
+              <input id="guest-name" name="guest-name" type="text" readonly placeholder="Se completará con tu enlace" />
+            </div>
+            <div class="form__row">
+              <label for="passes" class="form__label">Pases</label>
+              <input id="passes" name="passes" type="number" readonly value="1" />
+            </div>
+            <div class="form__row">
+              <label class="form__label">¿Asistirás?</label>
+              <div class="form__radios">
+                <label class="radio"><input type="radio" name="attending" value="si" required /> Sí</label>
+                <label class="radio"><input type="radio" name="attending" value="no" /> No</label>
+              </div>
+            </div>
+
+            <div class="form__row" id="row-guests" hidden>
+              <label for="guests" class="form__label">Número de invitados</label>
+              <input id="guests" name="guests" type="number" min="1" max="1" value="1" required />
+              <small id="guests-help" class="muted">Tu invitación es válida para 1 persona.</small>
+            </div>
+
+            <div class="form__row">
+              <label for="message" class="form__label">Mensaje para los novios (opcional)</label>
+              <textarea id="message" name="message" rows="3" placeholder="Con mucho gusto los acompañamos…"></textarea>
+            </div>
+
+            <div class="form__row">
+              <label for="notes" class="form__label">Notas (restricciones alimentarias, etc.)</label>
+              <textarea id="notes" name="notes" rows="2" placeholder="Escribe aquí…"></textarea>
+            </div>
+
+            <div class="form__actions">
+              <button id="btn-submit" class="btn btn--primary" type="submit" disabled>Enviar RSVP</button>
+              <span id="form-status" class="muted" role="status"></span>
+            </div>
+          </form>
+
+          <div class="token-help">
+            <details>
+              <summary>¿No ves tu nombre?</summary>
+              <p>Abre el enlace personalizado que te compartimos. Si no lo tienes a la mano, puedes agregar al final de la URL <code>?id=TU_TOKEN</code>.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>Con amor, Ángel & Andrea — 22.11.2025</p>
+      </div>
+    </footer>
+
+    <!-- Modal Lluvia de Sobres -->
+    <div id="modal-sobres" class="modal" aria-hidden="true" aria-labelledby="modal-sobres-title" aria-modal="true" role="dialog">
+      <div class="modal__backdrop" data-close-modal></div>
+      <div class="modal__dialog" role="document" tabindex="-1" aria-describedby="modal-sobres-desc">
+        <button class="modal__close" data-close-modal aria-label="Cerrar">×</button>
+        <h3 id="modal-sobres-title">Lluvia de sobres</h3>
+        <p id="modal-sobres-desc">Tu presencia es nuestro mejor regalo. Si deseas obsequiar un detalle en efectivo, puedes hacerlo el día del evento en una urna especial o mediante transferencia:</p>
+        <ul>
+          <li>Titular: Ángel Alatriste</li>
+          <li>Banco: Nombre del Banco</li>
+          <li>CLABE: <code id="clabe">000000000000000000</code></li>
+          <li>Concepto: Boda A&A</li>
+        </ul>
+        <div class="card__actions">
+          <button class="btn btn--outline" id="btn-copy-clabe">Copiar CLABE</button>
+        </div>
+        <p class="muted" id="copy-result"></p>
+        <p class="muted">¡Gracias por tu cariño y por ser parte de este momento!</p>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="assets/app.js"></script>
+  </body>
+  </html>

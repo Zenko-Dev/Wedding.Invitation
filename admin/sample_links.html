@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Generador de links personalizados</title>
+    <style>
+      body{font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Arial; margin:20px; line-height:1.5}
+      h1{font-size:20px; margin:0 0 10px}
+      .row{display:flex; gap:12px; flex-wrap:wrap; margin:8px 0}
+      input, textarea{width:100%; max-width:900px; padding:8px; border-radius:8px; border:1px solid #c9c9d0}
+      textarea{min-height:140px}
+      .btn{display:inline-flex; align-items:center; gap:6px; padding:8px 12px; border:1px solid #a2a2ad; border-radius:999px; background:#fff; cursor:pointer}
+      .out{margin-top:14px}
+      code{background:#f6f6fa; border:1px solid #e2e2ea; padding:2px 6px; border-radius:6px}
+      table{border-collapse:collapse; width:100%; max-width:900px;}
+      th,td{border:1px solid #e2e2ea; padding:6px 8px; text-align:left}
+      .muted{color:#666}
+    </style>
+  </head>
+  <body>
+    <h1>Generador de links personalizados</h1>
+    <p class="muted">Formato esperado de entrada por línea: <code>Nombre, TOKEN</code>. El enlace se arma con <code>?id=TOKEN</code>.</p>
+
+    <div class="row">
+      <label>Base URL (GitHub Pages):<br>
+        <input id="base" placeholder="https://usuario.github.io/repositorio/" />
+      </label>
+    </div>
+
+    <div class="row">
+      <label>Lista (uno por línea):<br>
+        <textarea id="list" placeholder="Ejemplo:\nMaría Pérez, ABC123xyz\nJuan López, a1b2c3d4"></textarea>
+      </label>
+    </div>
+
+    <div class="row">
+      <button class="btn" id="btn-gen">Generar</button>
+      <button class="btn" id="btn-copy">Copiar todo</button>
+    </div>
+
+    <div class="out" id="out"></div>
+
+    <script>
+      const baseEl = document.getElementById('base');
+      const listEl = document.getElementById('list');
+      const out = document.getElementById('out');
+
+      function buildUrl(base, token){
+        if(!base.endsWith('/')) base += '/';
+        return `${base}?id=${encodeURIComponent(token)}`;
+      }
+      function parseLines(text){
+        return text.split(/\r?\n/).map(l => l.trim()).filter(Boolean).map(l => {
+          const m = l.split(',');
+          const name = (m[0]||'').trim();
+          const token = (m[1]||'').trim();
+          return {name, token};
+        }).filter(x => x.token);
+      }
+      function render(base, items){
+        if(items.length === 0){ out.innerHTML = '<p class="muted">Sin datos.</p>'; return; }
+        let html = '<table><thead><tr><th>Nombre</th><th>Token</th><th>Link</th></tr></thead><tbody>';
+        const lines = [];
+        for(const it of items){
+          const url = buildUrl(base, it.token);
+          html += `<tr><td>${it.name||''}</td><td><code>${it.token}</code></td><td><a href="${url}" target="_blank">${url}</a></td></tr>`;
+          lines.push(`${it.name||''}\t${it.token}\t${url}`);
+        }
+        html += '</tbody></table>';
+        html += `<p class="muted">TSV para copiar:</p><pre id="pre">${lines.join('\n')}</pre>`;
+        out.innerHTML = html;
+      }
+      document.getElementById('btn-gen').addEventListener('click', () => {
+        const items = parseLines(listEl.value||'');
+        render(baseEl.value||'', items);
+      });
+      document.getElementById('btn-copy').addEventListener('click', async () => {
+        const pre = document.getElementById('pre');
+        if(!pre){ return; }
+        try{ await navigator.clipboard.writeText(pre.textContent); alert('Copiado'); }catch(_){ alert('No se pudo copiar'); }
+      });
+    </script>
+  </body>
+  </html>
+
